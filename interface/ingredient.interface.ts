@@ -3,7 +3,7 @@ interface Ingredient {
   name: string;
   price: number;
   weight: number;
-  image?: Buffer;
+  image?: string;
 }
 
 interface AddIngredient {

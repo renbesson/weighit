@@ -27,14 +27,14 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const data: Ingredient = await req.json();
+  const formData: FormData = await req.formData();
 
   try {
     const ingredient = await prisma.ingredient.create({
       data: {
-        name: <string>data.name,
-        price: <number>data.price,
-        weight: <number>data.weight,
+        name: formData.get("name") as string,
+        price: formData.get("price") as any,
+        weight: formData.get("weight") as any,
       },
     });
 

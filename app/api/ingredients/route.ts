@@ -18,7 +18,10 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error(error);
+    return new NextResponse(JSON.stringify({ error }), {
+      status: 400,
+    });
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }

@@ -15,7 +15,7 @@ export default async function AppBar() {
   );
 
   return (
-    <div className="navbar bg-primary">
+    <div className="navbar bg-primary mb-8">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -38,7 +38,7 @@ export default async function AppBar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <MainMenuOption text="Home" link="/" />
+            <MainMenuOption text="Ingredients" link="/ingredients" />
             <li>
               <a>Parent</a>
               <ul className="p-2">
@@ -59,7 +59,7 @@ export default async function AppBar() {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <MainMenuOption text="Home" link="/" />
+          <MainMenuOption text="Ingredients" link="/ingredients" />
           <li tabIndex={0}>
             <details>
               <summary>Parent</summary>
