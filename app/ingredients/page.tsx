@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Card from "../components/Card";
 
 async function getData() {
   const res = await fetch("http://localhost:3000/api/ingredients", {
-    cache: "no-cache",
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -21,6 +23,7 @@ export default async function Ingredients() {
       {data.map((item: Ingredient) => (
         <Card
           key={item.id}
+          id={item.id}
           title={item.name}
           price={item.price}
           weight={item.weight}

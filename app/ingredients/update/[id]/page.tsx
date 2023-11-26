@@ -2,19 +2,35 @@
 
 import { redirect } from "next/navigation";
 
-async function create(formData: FormData) {
+async function getIngr(id: string) {
+  try {
+    const res = await fetch(`http://localhost:3000/api/ingredient/?id=${id}`, {
+      cache: "no-cache",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data: ${res.statusText}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Update failed:", error);
+  }
+}
+
+async function updateIngr(formData: FormData, id: string) {
+  formData.append("id", id);
   let success;
 
   try {
-    const res = await fetch("http://localhost:3000/api/ingredient", {
-      method: "POST",
+    const res = await fetch(`http://localhost:3000/api/ingredient`, {
+      method: "PUT",
       body: formData,
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to create ingredient: ${res.statusText}`);
+      throw new Error(`Failed to update ingredient: ${res.statusText}`);
     }
-
     success = true;
   } catch (error) {
     console.error("Update failed:", error);
@@ -25,10 +41,15 @@ async function create(formData: FormData) {
   if (success) return redirect("/ingredients");
 }
 
-export default function AddIngredient() {
+export default async function UpdateIngredient({ params }: { params: { id: string } }) {
+  const ingr = await getIngr(params.id);
+
   return (
-    <form className="form-control max-w-md gap-3 m-auto" action={create}>
-      <h3 className="font-bold text-lg text-center">Add Ingredient</h3>
+    <form
+      className="form-control max-w-md gap-3 m-auto"
+      action={(formData) => updateIngr(formData, params.id)}
+    >
+      <h3 className="font-bold text-lg text-center">Update Ingredient</h3>
       <div>
         <label className="label">
           <span className="label-text">Name</span>
@@ -38,6 +59,7 @@ export default function AddIngredient() {
           name="name"
           type="text"
           required
+          defaultValue={ingr?.name}
           placeholder="Eg: Bubbaloo"
           className="input input-bordered w-full"
         />
@@ -53,6 +75,7 @@ export default function AddIngredient() {
           type="number"
           step=".01"
           required
+          defaultValue={ingr?.price}
           placeholder="Eg: 3.95"
           className="input input-bordered w-full"
         />
@@ -68,13 +91,14 @@ export default function AddIngredient() {
           type="number"
           step=".01"
           required
+          defaultValue={ingr?.weight}
           placeholder="Eg: 1000"
           className="input input-bordered w-full"
         />
       </div>
 
       <button className="btn btn-primary" type="submit">
-        Create
+        Update
       </button>
     </form>
   );
