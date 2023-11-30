@@ -10,7 +10,7 @@ export default function RecipeCard({ id, name, servings, image }: Recipe) {
     let success;
 
     try {
-      const res = await fetch(`api/recipe?id=${id}`, {
+      const res = await fetch(`${process.env.API_URL}/api/recipe?id=${id}`, {
         method: "DELETE",
       });
 
