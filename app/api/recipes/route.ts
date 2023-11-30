@@ -5,15 +5,15 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {
-    const ingredients = await prisma.ingredient.findMany();
+    const recipes = await prisma.recipe.findMany();
 
-    if (!ingredients) {
-      return new NextResponse(JSON.stringify({ name: "No ingredients found." }), {
+    if (!recipes) {
+      return new NextResponse(JSON.stringify({ name: "No recipes found." }), {
         status: 400,
       });
     }
 
-    return new NextResponse(JSON.stringify(ingredients), {
+    return new NextResponse(JSON.stringify(recipes), {
       status: 200,
     });
   } catch (error) {

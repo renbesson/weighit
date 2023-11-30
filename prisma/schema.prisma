@@ -1,34 +1,40 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Ingredient {
-  id        String   @id @unique @default(uuid())
-  name      String   @unique
-  price     Int
-  weight    Int
-  image     Bytes?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  Recipe    Recipe?  @relation(fields: [recipeId], references: [id])
-  recipeId  String?
+  id               String             @id @unique @default(cuid())
+  name             String             @unique
+  price            Float
+  weight           Float
+  image            String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+  RecipeIngredient RecipeIngredient[]
 }
 
 model Recipe {
-  id          String       @id @unique @default(uuid())
-  name        String       @unique
+  id          String             @id @unique @default(cuid())
+  name        String             @unique
+  servings    Float
   directions  String
-  image       Bytes
-  ingredients Ingredient[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now())
+  image       String
+  ingredients RecipeIngredient[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @default(now())
+}
+
+model RecipeIngredient {
+  id           String     @id @default(cuid())
+  recipeId     String
+  ingredientId String
+  quantity     Float
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
 }
