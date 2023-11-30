@@ -4,7 +4,7 @@ import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
 
 async function getRecipes() {
-  const res = await fetch("http://localhost:3000/api/recipes", {
+  const res = await fetch("api/recipes", {
     cache: "no-store",
   });
 
