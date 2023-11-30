@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
 
@@ -29,7 +27,6 @@ export default async function Recipes() {
           servings={item.servings}
           ingredients={item.ingredients}
           image={item.image || ""}
-          
         />
       ))}
       <Link

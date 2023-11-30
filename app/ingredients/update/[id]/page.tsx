@@ -1,5 +1,3 @@
-"use client";
-
 import { redirect } from "next/navigation";
 
 async function getIngr(id: string) {
@@ -18,37 +16,35 @@ async function getIngr(id: string) {
   }
 }
 
-async function updateIngr(formData: FormData, id: string) {
-  formData.append("id", id);
-  let success;
-
-  try {
-    const res = await fetch(`${process.env.API_URL}/api/ingredient?id=${id}`, {
-      method: "PUT",
-      body: formData,
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to update ingredient: ${res.statusText}`);
-    }
-    success = true;
-  } catch (error) {
-    console.error("Update failed:", error);
-  }
-
-  // needed until they fix the bug which prevent the use of
-  // redirect inside a try...catch block
-  if (success) return redirect("/ingredients");
-}
-
 export default async function UpdateIngredient({ params }: { params: { id: string } }) {
   const ingr = await getIngr(params.id);
 
+  async function updateIngr(formData: FormData) {
+    "use server";
+    formData.append("id", params.id);
+    let success;
+
+    try {
+      const res = await fetch(`${process.env.API_URL}/api/ingredient?id=${params.id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to update ingredient: ${res.statusText}`);
+      }
+      success = true;
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
+
+    // needed until they fix the bug which prevent the use of
+    // redirect inside a try...catch block
+    if (success) return redirect("/ingredients");
+  }
+
   return (
-    <form
-      className="form-control max-w-md gap-3 m-auto"
-      action={(formData) => updateIngr(formData, params.id)}
-    >
+    <form className="form-control max-w-md gap-3 m-auto" action={updateIngr}>
       <h3 className="font-bold text-lg text-center">Update Ingredient</h3>
       <div>
         <label className="label">

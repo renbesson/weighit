@@ -1,8 +1,7 @@
-"use client";
-
 import { redirect } from "next/navigation";
 
 async function create(formData: FormData) {
+  "use server";
   let success;
 
   try {

@@ -1,10 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import Card from "../components/IngredientCard";
 
 async function getIngrs() {
-  console.log("API_URL: ", process.env.API_URL)
+  console.log("API_URL: ", process.env.API_URL);
   const res = await fetch(`${process.env.API_URL}/api/ingredients`, {
     cache: "no-store",
   });
