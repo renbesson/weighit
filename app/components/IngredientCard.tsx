@@ -20,7 +20,7 @@ export default function IngredientCard({ id, title, price, weight, image }: Prop
     formData.append("id", id);
 
     try {
-      const res = await fetch(`http://localhost:3000/api/ingredient?id=${id}`, {
+      const res = await fetch(`api/ingredient?id=${id}`, {
         method: "DELETE",
         body: formData,
       });

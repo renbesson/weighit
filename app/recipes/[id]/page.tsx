@@ -16,7 +16,7 @@ async function getRecipe(url: string) {
 }
 
 export default function RecipePage({ params }: { params: { id: string } }) {
-  const { data: recipe } = useSWR(`http://localhost:3000/api/recipe?id=${params.id}`, getRecipe);
+  const { data: recipe } = useSWR(`api/recipe?id=${params.id}`, getRecipe);
   const [customServings, setCustomServings] = useState(recipe?.servings);
 
   useEffect(() => {

@@ -8,7 +8,7 @@ async function createRecipe(formData: FormData) {
   let success;
 
   try {
-    const res = await fetch("http://localhost:3000/api/recipe", {
+    const res = await fetch("api/recipe", {
       method: "POST",
       body: formData,
     });
@@ -42,7 +42,7 @@ async function getRecipes(url: string) {
 export default function AddRecipe() {
   const [ingrCount, setIngrCount] = useState(0);
 
-  const { data: ingrs } = useSWR("http://localhost:3000/api/ingredients", getRecipes);
+  const { data: ingrs } = useSWR("api/ingredients", getRecipes);
 
   return (
     <form className="form-control max-w-md gap-3 m-auto" action={createRecipe}>
