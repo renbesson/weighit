@@ -4,7 +4,7 @@ import Link from "next/link";
 import Card from "../components/IngredientCard";
 
 async function getIngrs() {
-  const res = await fetch("api/ingredients", {
+  const res = await fetch(`${process.env.API_URL}/api/ingredients`, {
     cache: "no-store",
   });
 

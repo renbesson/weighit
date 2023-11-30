@@ -6,7 +6,7 @@ async function create(formData: FormData) {
   let success;
 
   try {
-    const res = await fetch("api/ingredient", {
+    const res = await fetch(`${process.env.API_URL}/api/ingredient`, {
       method: "POST",
       body: formData,
     });
