@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 async function getIngr(id: string) {
   try {
-    const res = await fetch(`http://localhost:3000/api/ingredient?id=${id}`, {
+    const res = await fetch(`http://localhost:3000/api/ingredient/?id=${id}`, {
       cache: "no-cache",
     });
 

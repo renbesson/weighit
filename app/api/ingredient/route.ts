@@ -42,8 +42,9 @@ export async function POST(req: NextRequest) {
     const ingredient = await prisma.ingredient.create({
       data: {
         name: formData.get("name") as string,
-        price: formData.get("price") as any,
-        weight: formData.get("weight") as any,
+        price: Number(formData.get("price")) as number,
+        weight: Number(formData.get("weight")) as number,
+        image: "",
       },
     });
 
@@ -68,7 +69,8 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   const formData: FormData = await req.formData();
-  const ingrId = (formData.get("id") as string) || "";
+  const { searchParams } = new URL(req.url);
+  const ingrId = searchParams.get("id");
 
   if (!ingrId) {
     return new NextResponse(
@@ -86,8 +88,8 @@ export async function PUT(req: NextRequest) {
       },
       data: {
         name: formData.get("name") as string,
-        price: formData.get("price") as any,
-        weight: formData.get("weight") as any,
+        price: Number(formData.get("price")) as number,
+        weight: Number(formData.get("weight")) as number,
       },
     });
 
@@ -111,8 +113,8 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const formData: FormData = await req.formData();
-  const ingrId = (formData.get("id") as string) || "";
+  const { searchParams } = new URL(req.url);
+  const ingrId = searchParams.get("id");
 
   if (!ingrId) {
     return new NextResponse(

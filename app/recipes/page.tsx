@@ -1,38 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import Card from "../components/IngredientCard";
+import RecipeCard from "../components/RecipeCard";
 
-async function getIngrs() {
-  const res = await fetch("http://localhost:3000/api/ingredients", {
+async function getRecipes() {
+  const res = await fetch("http://localhost:3000/api/recipes", {
     cache: "no-store",
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch recipe: ${res.statusText}`);
+    throw new Error(`Failed to fetch recipes: ${res.statusText}`);
   }
 
   return res.json();
 }
 
-export default async function Ingredients() {
-  const data = await getIngrs();
+export default async function Recipes() {
+  const data = await getRecipes();
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
-      {data.map((item: Ingredient) => (
-        <Card
+      {data.map((item: Recipe) => (
+        <RecipeCard
           key={item.id}
           id={item.id}
-          title={item.name}
-          price={item.price}
-          weight={item.weight}
+          name={item.name}
+          directions={item.directions}
+          servings={item.servings}
+          ingredients={item.ingredients}
           image={item.image || ""}
+          
         />
       ))}
       <Link
         className="btn btn-secondary btn-square absolute right-5 bottom-5"
-        href={"/ingredients/add"}
+        href={"/recipes/add"}
       >
         <svg
           className="h-10 w-10"

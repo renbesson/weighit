@@ -39,17 +39,7 @@ export default async function AppBar() {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <MainMenuOption text="Ingredients" link="/ingredients" />
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
+            <MainMenuOption text="Recipes" link="/recipes" />
             <MainMenuOption text="Contact Us" link="/contactus" />
           </ul>
         </div>
@@ -60,19 +50,7 @@ export default async function AppBar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <MainMenuOption text="Ingredients" link="/ingredients" />
-          <li tabIndex={0}>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
+          <MainMenuOption text="Recipes" link="/recipes" />
           <MainMenuOption text="Contact Us" link="/contactus" />
         </ul>
       </div>

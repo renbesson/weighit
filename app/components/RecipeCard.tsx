@@ -3,34 +3,23 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-interface Props {
-  id: string;
-  title: string;
-  price: number;
-  weight: number;
-  image: string;
-}
-
-export default function Card({ id, title, price, weight, image }: Props) {
+export default function RecipeCard({ id, name, servings, image }: Recipe) {
   const router = useRouter();
-  
-  async function deleteIngr(id: string) {
+
+  async function deleteRecipe(id: string) {
     let success;
-    const formData = new FormData();
-    formData.append("id", id);
 
     try {
-      const res = await fetch(`http://localhost:3000/api/ingredient`, {
+      const res = await fetch(`http://localhost:3000/api/recipe?id=${id}`, {
         method: "DELETE",
-        body: formData,
       });
 
       if (!res.ok) {
-        throw new Error(`Failed to update ingredient: ${res.statusText}`);
+        throw new Error(`Failed to delete recipe: ${res.statusText}`);
       }
       success = true;
     } catch (error) {
-      console.error("Update failed:", error);
+      console.error("Delete failed:", error);
     } finally {
       // needed until they fix the bug which prevent the use of
       // redirect inside a try...catch block
@@ -44,9 +33,10 @@ export default function Card({ id, title, price, weight, image }: Props) {
         <img className="w-auto h-auto" alt="" src={image || "/images/placeholder.jpg"} />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <span>Price: ${price}</span>
-        <span>Weight: {weight}gr</span>
+        <Link className="card-title" href={`/recipes/${id}`}>
+          {name}
+        </Link>
+        <span>Servings: {servings}</span>
         <div className="absolute bottom-3 right-3">
           <button className="btn btn-primary btn-square m-1">
             <img src="/icons/editImg.svg" />
@@ -54,7 +44,7 @@ export default function Card({ id, title, price, weight, image }: Props) {
           <Link href={`/ingredients/update/${id}`} className="btn btn-primary btn-square m-1">
             <img src="/icons/edit.svg" />
           </Link>
-          <button className="btn btn-error btn-square m-1" onClick={() => deleteIngr(id)}>
+          <button className="btn btn-error btn-square m-1" onClick={() => deleteRecipe(id)}>
             <img src="/icons/delete.svg" />
           </button>
         </div>
