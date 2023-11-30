@@ -229,6 +229,8 @@ export async function DELETE(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const recipeId = searchParams.get("id");
 
+  console.log("id: ", recipeId)
+
   if (!recipeId) {
     return new NextResponse(JSON.stringify({ message: "Please provide an recipe to delete." }), {
       status: 400,
