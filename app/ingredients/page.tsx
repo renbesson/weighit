@@ -1,25 +1,13 @@
 import Link from "next/link";
 import Card from "../components/IngredientCard";
-
-async function getIngrs() {
-  console.log("API_URL: ", process.env.API_URL);
-  const res = await fetch(`${process.env.API_URL}/api/ingredients`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch recipe: ${res.statusText}`);
-  }
-
-  return res.json();
-}
+import getIngredients from "./getIngredients";
 
 export default async function Ingredients() {
-  const data = await getIngrs();
+  const ingredients = (await getIngredients()) as Ingredient[];
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
-      {data.map((item: Ingredient) => (
+      {ingredients.map((item: Ingredient) => (
         <Card
           key={item.id}
           id={item.id}
