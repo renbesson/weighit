@@ -1,5 +1,6 @@
 "use client";
 
+import { apiUrl } from "@/lib/setUrl";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
