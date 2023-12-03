@@ -4,7 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
-  console.log("ERRORLOG")
+  return new NextResponse(JSON.stringify({ message: "This is a message." }), {
+    status: 200,
+  });
   /* try {
     const ingredients = await prisma.ingredient.findMany();
 
