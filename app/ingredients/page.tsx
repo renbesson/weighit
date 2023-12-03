@@ -7,7 +7,7 @@ async function getIngrs() {
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch recipe: ${JSON.stringify(res)}`);
+    throw new Error(`Failed to fetch recipe: ${JSON.stringify(res.json())}`);
   }
 
   return res.json();
