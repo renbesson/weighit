@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       status: 200,
     });
   } catch (error) {
-    console.error(error);
+    console.error("ROUTE ERROR: ", error);
     return new NextResponse(JSON.stringify({ error }), {
       status: 400,
     });
