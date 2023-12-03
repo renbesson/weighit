@@ -9,14 +9,14 @@ async function getRecipe(url: string) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch recipes.");
+    throw new Error("Failed to fetch recipe.");
   }
 
   return res.json();
 }
 
 export default function RecipePage({ params }: { params: { id: string } }) {
-  const { data: recipe } = useSWR(`/api/recipe?id=${params.id}`, getRecipe);
+  const { data: recipe } = useSWR(`${apiUrl}/api/recipe?id=${params.id}`, getRecipe);
   const [customServings, setCustomServings] = useState(recipe?.servings);
 
   useEffect(() => {
