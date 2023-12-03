@@ -3,7 +3,7 @@ import RecipeCard from "../components/RecipeCard";
 import { apiUrl } from "@/lib/setUrl";
 
 async function getRecipes() {
-  const res = await fetch(`https://${apiUrl}/api/recipes`, {
+  const res = await fetch(`${apiUrl}/api/recipes`, {
     cache: "no-store",
   });
 

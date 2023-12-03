@@ -3,7 +3,9 @@ import Card from "../components/IngredientCard";
 import { apiUrl } from "@/lib/setUrl";
 
 async function getIngrs() {
-  const res = await fetch(`https://${apiUrl}/api/ingredients`, {
+  const fetchUrl = `${apiUrl}/api/ingredients`;
+  console.log(fetchUrl);
+  const res = await fetch(fetchUrl, {
     cache: "no-store",
   });
 

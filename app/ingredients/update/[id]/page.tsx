@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 async function getIngr(id: string) {
   try {
-    const res = await fetch(`https://${apiUrl}/api/ingredient?id=${id}`, {
+    const res = await fetch(`${apiUrl}/api/ingredient?id=${id}`, {
       cache: "no-cache",
     });
 
@@ -26,7 +26,7 @@ export default async function UpdateIngredient({ params }: { params: { id: strin
     let success;
 
     try {
-      const res = await fetch(`https://${apiUrl}/api/ingredient?id=${params.id}`, {
+      const res = await fetch(`${apiUrl}/api/ingredient?id=${params.id}`, {
         method: "PUT",
         body: formData,
       });
