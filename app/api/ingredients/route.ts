@@ -1,13 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
-  return new NextResponse(JSON.stringify({ message: "This is a message." }), {
-    status: 200,
-  });
-  /* try {
+  try {
     const ingredients = await prisma.ingredient.findMany();
 
     if (!ingredients) {
@@ -26,5 +22,5 @@ export async function GET(request: NextRequest) {
     });
   } finally {
     await prisma.$disconnect();
-  } */
+  }
 }
