@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Card from "../components/IngredientCard";
+import { apiUrl } from "@/lib/setUrl";
 
 async function getIngrs() {
-  const res = await fetch(`https://${process.env.VERCEL_URL}/api/ingredients`, {
+  const res = await fetch(`https://${apiUrl}/api/ingredients`, {
     cache: "no-store",
   });
 

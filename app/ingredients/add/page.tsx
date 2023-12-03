@@ -1,3 +1,4 @@
+import { apiUrl } from "@/lib/setUrl";
 import { redirect } from "next/navigation";
 
 async function create(formData: FormData) {
@@ -5,7 +6,7 @@ async function create(formData: FormData) {
   let success;
 
   try {
-    const res = await fetch(`https://${process.env.VERCEL_URL}/api/ingredient`, {
+    const res = await fetch(`https://${apiUrl}/api/ingredient`, {
       method: "POST",
       body: formData,
     });

@@ -1,8 +1,9 @@
+import { apiUrl } from "@/lib/setUrl";
 import { redirect } from "next/navigation";
 
 async function getIngr(id: string) {
   try {
-    const res = await fetch(`https://${process.env.VERCEL_URL}/api/ingredient/?id=${id}`, {
+    const res = await fetch(`https://${apiUrl}/api/ingredient/?id=${id}`, {
       cache: "no-cache",
     });
 
@@ -21,7 +22,7 @@ async function updateIngr(formData: FormData, id: string) {
   let success;
 
   try {
-    const res = await fetch(`https://${process.env.VERCEL_URL}/api/ingredient?id=${id}`, {
+    const res = await fetch(`https://${apiUrl}/api/ingredient?id=${id}`, {
       method: "PUT",
       body: formData,
     });
