@@ -8,7 +8,9 @@ async function getRecipes() {
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch recipes: ${res.statusText}`);
+    throw new Error(
+      `Failed to fetch recipes: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+    );
   }
 
   return res.json();

@@ -15,7 +15,9 @@ async function createRecipe(formData: FormData) {
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to create recipe: ${res.statusText}`);
+      throw new Error(
+        `Failed to create recipe: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+      );
     }
 
     success = true;
@@ -34,7 +36,9 @@ async function getRecipes(url: string) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch recipes.");
+    throw new Error(
+      `Failed to fetch recipes: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+    );
   }
 
   return res.json();

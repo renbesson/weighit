@@ -8,7 +8,9 @@ async function getIngr(id: string) {
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch data: ${res.statusText}`);
+      throw new Error(
+        `Failed to fetch data: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+      );
     }
 
     return res.json();
@@ -28,7 +30,9 @@ async function updateIngr(formData: FormData, id: string) {
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to update ingredient: ${res.statusText}`);
+      throw new Error(
+        `Failed to update ingredient: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+      );
     }
     success = true;
   } catch (error) {

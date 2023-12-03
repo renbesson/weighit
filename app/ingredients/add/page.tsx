@@ -12,7 +12,9 @@ async function create(formData: FormData) {
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to create ingredient: ${res.statusText}`);
+      throw new Error(
+        `Failed to create ingredient: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+      );
     }
 
     success = true;

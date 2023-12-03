@@ -28,7 +28,9 @@ export default function IngredientCard({ id, title, price, weight, image }: Prop
       });
 
       if (!res.ok) {
-        throw new Error(`Failed to update ingredient: ${res.statusText}`);
+        throw new Error(
+          `Failed to update ingredient: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+        );
       }
       success = true;
     } catch (error) {

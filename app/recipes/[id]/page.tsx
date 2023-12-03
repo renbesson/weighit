@@ -10,7 +10,9 @@ async function getRecipe(url: string) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch recipe.");
+    throw new Error(
+      `Failed to fetch recipe: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
+    );
   }
 
   return res.json();
@@ -21,8 +23,8 @@ export default function RecipePage({ params }: { params: { id: string } }) {
   const [customServings, setCustomServings] = useState(recipe?.servings);
 
   useEffect(() => {
-    setCustomServings(recipe?.servings)
-  }, [recipe?.servings])
+    setCustomServings(recipe?.servings);
+  }, [recipe?.servings]);
 
   const IngrsView = () => {
     let totalCost = 0;
@@ -37,10 +39,10 @@ export default function RecipePage({ params }: { params: { id: string } }) {
           </tr>
           {recipe?.ingredients?.map((ingr: any) => {
             const costPerGram = ingr.ingredient.price / ingr.ingredient.weight;
-            const qtyPerServing = ingr.quantity / recipe.servings
-            const currentQty = qtyPerServing * customServings
+            const qtyPerServing = ingr.quantity / recipe.servings;
+            const currentQty = qtyPerServing * customServings;
             const costOfIngr = costPerGram * currentQty;
-            
+
             totalCost += costOfIngr;
 
             return (
