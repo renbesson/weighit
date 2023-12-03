@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
-  try {
+  console.log("ERRORLOG")
+  /* try {
     const ingredients = await prisma.ingredient.findMany();
 
     if (!ingredients) {
@@ -23,5 +24,5 @@ export async function GET(request: NextRequest) {
     });
   } finally {
     await prisma.$disconnect();
-  }
+  } */
 }
