@@ -1,10 +1,9 @@
 import Link from "next/link";
-import Card from "../components/IngredientCard";
+import IngredientCard from "../components/IngredientCard";
 import { apiUrl } from "@/lib/setUrl";
 
 async function getIngredients() {
   const fetchUrl = `${apiUrl}/api/ingredients`;
-  console.log(fetchUrl);
   const res = await fetch(fetchUrl, {
     cache: "no-store",
   });
@@ -24,7 +23,7 @@ export default async function Ingredients() {
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
       {ingredients.map((item: Ingredient) => (
-        <Card
+        <IngredientCard
           key={item.id}
           id={item.id}
           title={item.name}
@@ -35,7 +34,7 @@ export default async function Ingredients() {
       ))}
       <Link
         className="btn btn-secondary btn-square absolute right-5 bottom-5"
-        href={"/ingredients/add"}
+        href="/ingredients/add"
       >
         <svg
           className="h-10 w-10"
