@@ -1,8 +1,5 @@
-import Ingredients from "@/app/ingredients/page";
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 
 interface RecipeIngr {
   ingredient: { connect: { id: string } };
@@ -229,7 +226,7 @@ export async function DELETE(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const recipeId = searchParams.get("id");
 
-  console.log("id: ", recipeId)
+  console.log("id: ", recipeId);
 
   if (!recipeId) {
     return new NextResponse(JSON.stringify({ message: "Please provide an recipe to delete." }), {

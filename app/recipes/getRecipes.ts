@@ -1,9 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export default async function getRecipes() {
   "use server";
-
-  const prisma = new PrismaClient();
 
   try {
     const recipes = await prisma.recipe.findMany();
