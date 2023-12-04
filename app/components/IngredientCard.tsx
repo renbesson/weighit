@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +14,7 @@ interface Props {
 
 export default function IngredientCard({ id, title, price, weight, image }: Props) {
   const router = useRouter();
-  
+
   async function deleteIngr(id: string) {
     let success;
     const formData = new FormData();
@@ -41,7 +42,13 @@ export default function IngredientCard({ id, title, price, weight, image }: Prop
   return (
     <div className="card card-compact bg-base-100 shadow-xl w-96 image-full">
       <figure>
-        <img className="w-auto h-auto" alt="" src={image || "/images/placeholder.jpg"} />
+        <Image
+          className="w-auto h-auto"
+          src={image || "/images/placeholder.jpg"}
+          alt=""
+          width={256}
+          height={128}
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
@@ -49,13 +56,13 @@ export default function IngredientCard({ id, title, price, weight, image }: Prop
         <span>Weight: {weight}gr</span>
         <div className="absolute bottom-3 right-3">
           <button className="btn btn-primary btn-square m-1">
-            <img src="/icons/editImg.svg" />
+            <Image src="/icons/editImg.svg" alt="" width={256} height={128} />
           </button>
           <Link href={`/ingredients/update/${id}`} className="btn btn-primary btn-square m-1">
-            <img src="/icons/edit.svg" />
+            <Image src="/icons/edit.svg" alt="" width={256} height={128} />
           </Link>
           <button className="btn btn-error btn-square m-1" onClick={() => deleteIngr(id)}>
-            <img src="/icons/delete.svg" />
+            <Image src="/icons/delete.svg" alt="" width={256} height={128} />
           </button>
         </div>
       </div>
