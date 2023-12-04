@@ -2,7 +2,7 @@ import Link from "next/link";
 import Card from "../components/IngredientCard";
 import { apiUrl } from "@/lib/setUrl";
 
-async function getIngrs() {
+async function getIngredients() {
   const fetchUrl = `${apiUrl}/api/ingredients`;
   console.log(fetchUrl);
   const res = await fetch(fetchUrl, {
@@ -19,11 +19,11 @@ async function getIngrs() {
 }
 
 export default async function Ingredients() {
-  const data = await getIngrs();
+  const ingredients = await getIngredients();
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
-      {data.map((item: Ingredient) => (
+      {ingredients.map((item: Ingredient) => (
         <Card
           key={item.id}
           id={item.id}

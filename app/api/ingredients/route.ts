@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
-  console.log("PRISMA: ", !!prisma);
   try {
+    await prisma.$connect();
     const ingredients = await prisma.ingredient.findMany();
 
     if (!ingredients) {
