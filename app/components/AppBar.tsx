@@ -40,7 +40,7 @@ export default async function AppBar() {
           >
             <MainMenuOption text="Ingredients" link="/ingredients" />
             <MainMenuOption text="Recipes" link="/recipes" />
-            <MainMenuOption text="Contact Us" link="/contactus" />
+            <MainMenuOption text="Contact Us" link="/#" />
           </ul>
         </div>
         <Link className="btn btn-ghost normal-case text-xl" href={"/"}>
@@ -51,7 +51,7 @@ export default async function AppBar() {
         <ul className="menu menu-horizontal px-1">
           <MainMenuOption text="Ingredients" link="/ingredients" />
           <MainMenuOption text="Recipes" link="/recipes" />
-          <MainMenuOption text="Contact Us" link="/contactus" />
+          <MainMenuOption text="Contact Us" link="/#" />
         </ul>
       </div>
     </div>
