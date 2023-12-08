@@ -1,8 +1,8 @@
+"use server";
+
 import prisma from "@/lib/prisma";
 
 export default async function getIngredients() {
-  "use server";
-
   try {
     const ingredients = await prisma.ingredient.findMany();
 

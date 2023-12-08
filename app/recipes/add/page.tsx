@@ -1,51 +1,19 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { createItem } from "@/app/ingredients/actions/createItem";
+import { getItems } from "@/app/ingredients/actions/getItems";
 import { useState } from "react";
-import useSWR from "swr";
+import useSWR, { Fetcher } from "swr";
 
-async function createRecipe(formData: FormData) {
-  let success;
-
-  try {
-    const res = await fetch(`/api/recipe`, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to create recipe: ${res.statusText}`);
-    }
-
-    success = true;
-  } catch (error) {
-    console.error("Update failed:", error);
-  }
-
-  // needed until they fix the bug which prevent the use of
-  // redirect inside a try...catch block
-  if (success) return redirect("/recipes");
-}
-
-async function getRecipes(url: string) {
-  const res = await fetch(url, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch recipes.");
-  }
-
-  return res.json();
-}
+const fetcher = async () => await getItems("ingredients");
 
 export default function AddRecipe() {
   const [ingrCount, setIngrCount] = useState(0);
-
-  const { data: ingrs } = useSWR(`/api/ingredients`, getRecipes);
+  const createItemWithType = createItem.bind(null, "recipe");
+  const { data: ingredients } = useSWR("/ ", fetcher) as { data: Ingredient[] };
 
   return (
-    <form className="form-control max-w-md gap-3 m-auto" action={createRecipe}>
+    <form className="form-control max-w-md gap-3 m-auto" action={createItemWithType}>
       <h3 className="font-bold text-lg text-center">Add Recipe</h3>
       <div>
         <label className="label">
@@ -91,7 +59,7 @@ export default function AddRecipe() {
               <option hidden disabled value="">
                 Select...
               </option>
-              {ingrs.map((ingr: Ingredient) => (
+              {ingredients.map((ingr: Ingredient) => (
                 <option id={ingr.id} key={ingr.id}>
                   {ingr.name} [{ingr.id}]
                 </option>

@@ -1,32 +1,9 @@
-import { redirect } from "next/navigation";
-
-async function create(formData: FormData) {
-  "use server";
-  let success;
-
-  try {
-    const res = await fetch(`${process.env.API_URL}/api/ingredient`, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to create ingredient: ${res.statusText}`);
-    }
-
-    success = true;
-  } catch (error) {
-    console.error("Update failed:", error);
-  }
-
-  // needed until they fix the bug which prevent the use of
-  // redirect inside a try...catch block
-  if (success) return redirect("/ingredients");
-}
+import { createItem } from "../actions/createItem";
 
 export default function AddIngredient() {
+  const createItemWithType = createItem.bind(null, "ingredient");
   return (
-    <form className="form-control max-w-md gap-3 m-auto" action={create}>
+    <form className="form-control max-w-md gap-3 m-auto" action={createItemWithType}>
       <h3 className="font-bold text-lg text-center">Add Ingredient</h3>
       <div>
         <label className="label">

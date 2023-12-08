@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Card from "../components/IngredientCard";
-import getIngredients from "./getIngredients";
+import IngredientCard from "../components/IngredientCard";
+import getIngredients from "./actions/getIngredients";
 
 export default async function Ingredients() {
   const ingredients = (await getIngredients()) as Ingredient[];
@@ -8,7 +8,7 @@ export default async function Ingredients() {
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
       {ingredients.map((item: Ingredient) => (
-        <Card
+        <IngredientCard
           key={item.id}
           id={item.id}
           title={item.name}

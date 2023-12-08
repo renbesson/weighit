@@ -16,7 +16,7 @@ export default function RecipeCard({ id, name, servings, image }: Recipe) {
       });
 
       if (!res.ok) {
-        throw new Error(`Failed to delete recipe: ${res.statusText}`);
+        throw new Error(`Failed to delete recipe: ${res.statusText} (${res.status})`);
       }
       success = true;
     } catch (error) {

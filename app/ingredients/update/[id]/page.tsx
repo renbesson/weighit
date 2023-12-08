@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { updateItem } from "../../actions/updateItem";
 
 async function getIngr(id: string) {
   try {
@@ -7,7 +7,7 @@ async function getIngr(id: string) {
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch data: ${res.statusText}`);
+      throw new Error(`Failed to fetch data: ${res.statusText} (${res.status})`);
     }
 
     return res.json();
@@ -18,33 +18,10 @@ async function getIngr(id: string) {
 
 export default async function UpdateIngredient({ params }: { params: { id: string } }) {
   const ingr = await getIngr(params.id);
-
-  async function updateIngr(formData: FormData) {
-    "use server";
-    formData.append("id", params.id);
-    let success;
-
-    try {
-      const res = await fetch(`${process.env.API_URL}/api/ingredient?id=${params.id}`, {
-        method: "PUT",
-        body: formData,
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to update ingredient: ${res.statusText}`);
-      }
-      success = true;
-    } catch (error) {
-      console.error("Update failed:", error);
-    }
-
-    // needed until they fix the bug which prevent the use of
-    // redirect inside a try...catch block
-    if (success) return redirect("/ingredients");
-  }
+  const updateItemWithId = updateItem.bind(null, params.id, "ingredient");
 
   return (
-    <form className="form-control max-w-md gap-3 m-auto" action={updateIngr}>
+    <form className="form-control max-w-md gap-3 m-auto" action={updateItemWithId}>
       <h3 className="font-bold text-lg text-center">Update Ingredient</h3>
       <div>
         <label className="label">
