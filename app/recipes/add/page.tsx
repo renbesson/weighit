@@ -3,7 +3,7 @@
 import { createItem } from "@/app/ingredients/actions/createItem";
 import { getItems } from "@/app/ingredients/actions/getItems";
 import { useState } from "react";
-import useSWR, { Fetcher } from "swr";
+import useSWR from "swr";
 
 const fetcher = async () => await getItems("ingredients");
 

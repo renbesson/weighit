@@ -1,8 +1,6 @@
-import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
-import { deleteItem } from "../ingredients/actions/deleteItem";
 import Image from "next/image";
 import Link from "next/link";
+import { deleteItem } from "../ingredients/actions/deleteItem";
 
 interface Props {
   id: string;
@@ -10,20 +8,6 @@ interface Props {
   price: number;
   weight: number;
   image: string;
-}
-
-async function deleteIngredient(id: string) {
-  "use server";
-  const ingrDeleted = await prisma.ingredient.delete({
-    where: {
-      id,
-    },
-  });
-
-  if (!ingrDeleted) {
-    return JSON.stringify({ message: "Error deleting ingredient." });
-  }
-  redirect("/ingredients");
 }
 
 export default function IngredientCard({ id, title, price, weight, image }: Props) {

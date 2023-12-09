@@ -1,25 +1,13 @@
 "use client";
 
-import { apiUrl } from "@/lib/setUrl";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { getItem } from "@/app/ingredients/actions/getItem";
 
-async function getRecipe(url: string) {
-  const res = await fetch(url, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error(
-      `Failed to fetch recipe: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
-    );
-  }
-
-  return res.json();
-}
+const fetcher = async (id: string) => await getItem(id, "recipe");
 
 export default function RecipePage({ params }: { params: { id: string } }) {
-  const { data: recipe } = useSWR(`${apiUrl}/api/recipe?id=${params.id}`, getRecipe);
+  const { data: recipe } = useSWR(params.id, fetcher) as any;
   const [customServings, setCustomServings] = useState(recipe?.servings);
 
   useEffect(() => {
@@ -47,9 +35,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
 
             return (
               <tr key={ingr.id}>
-                <td>
-                  <span className="font-bold">{currentQty}</span> gram(s)
-                </td>
+                <td>{currentQty && <span className="font-bold">{currentQty}</span>} gram(s)</td>
                 <td>{ingr.ingredient.name}</td>
                 <td>
                   {costOfIngr.toLocaleString("en-US", {
