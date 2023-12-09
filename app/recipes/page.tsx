@@ -1,27 +1,13 @@
 import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
-import { apiUrl } from "@/lib/setUrl";
-
-async function getRecipes() {
-  const res = await fetch(`${apiUrl}/api/recipes`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error(
-      `Failed to fetch recipes: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
-    );
-  }
-
-  return res.json();
-}
+import getRecipes from "./getRecipes";
 
 export default async function Recipes() {
-  const data = await getRecipes();
+  const recipes = (await getRecipes()) as Recipe[];
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
-      {data.map((item: Recipe) => (
+      {recipes.map((item: Recipe) => (
         <RecipeCard
           key={item.id}
           id={item.id}

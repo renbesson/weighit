@@ -1,6 +1,5 @@
 "use client";
 
-import { apiUrl } from "@/lib/setUrl";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,9 +16,7 @@ export default function RecipeCard({ id, name, servings, image }: Recipe) {
       });
 
       if (!res.ok) {
-        throw new Error(
-          `Failed to delete recipe: ${JSON.stringify(`${res.statusText} (${res.status})`)}`
-        );
+        throw new Error(`Failed to delete recipe: ${res.statusText} (${res.status})`);
       }
       success = true;
     } catch (error) {
@@ -49,13 +46,13 @@ export default function RecipeCard({ id, name, servings, image }: Recipe) {
         <span>Servings: {servings}</span>
         <div className="absolute bottom-3 right-3">
           <button className="btn btn-primary btn-square m-1">
-            <Image src="/icons/editImg.svg" alt="" width={24} height={24} />
+            <Image src="/icons/editImg.svg" alt="" width={256} height={128} />
           </button>
           <Link href={`/ingredients/update/${id}`} className="btn btn-primary btn-square m-1">
-            <Image src="/icons/edit.svg" alt="" width={24} height={24} />
+            <Image src="/icons/edit.svg" alt="" width={256} height={128} />
           </Link>
           <button className="btn btn-error btn-square m-1" onClick={() => deleteRecipe(id)}>
-            <Image src="/icons/delete.svg" alt="" width={24} height={24} />
+            <Image src="/icons/delete.svg" alt="" width={256} height={128} />
           </button>
         </div>
       </div>
