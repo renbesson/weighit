@@ -1,9 +1,9 @@
 import Link from "next/link";
 import IngredientCard from "../components/IngredientCard";
-import getIngredients from "./actions/getIngredients";
+import { getItems } from "./actions/getItems";
 
 export default async function Ingredients() {
-  const ingredients = (await getIngredients()) as Ingredient[];
+  const ingredients = (await getItems('ingredients')) as Ingredient[];
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
