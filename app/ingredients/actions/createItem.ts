@@ -74,7 +74,7 @@ export async function createItem(type: string, formData: FormData) {
       }
 
       // On success
-      redirect("recipes");
+      redirect("/recipes");
 
     default:
       return JSON.stringify({ message: "Invalid 'type' argument." });
