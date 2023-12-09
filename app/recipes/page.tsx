@@ -1,10 +1,11 @@
 import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
 import getRecipes from "./getRecipes";
+import { getItems } from "../ingredients/actions/getItems";
 
 export default async function Recipes() {
-  const recipes = (await getRecipes()) as Recipe[];
-
+  const recipes = await getItems("recipes") as any;
+  console.log(recipes);
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
       {recipes.map((item: Recipe) => (

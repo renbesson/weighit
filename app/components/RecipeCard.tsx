@@ -6,7 +6,7 @@ interface Props {
   id: string;
   name: string;
   servings: number;
-  ingredients: Ingredient[];
+  ingredients: RecipeIngredient[];
   directions: string;
   image: string;
 }
