@@ -6,7 +6,7 @@ import AppBar from "./components/AppBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Weight It",
+  title: "Weigh It",
   description: "",
 };
 

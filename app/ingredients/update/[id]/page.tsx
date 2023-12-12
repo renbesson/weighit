@@ -1,23 +1,8 @@
+import { getItem } from "../../actions/getItem";
 import { updateItem } from "../../actions/updateItem";
 
-async function getIngr(id: string) {
-  try {
-    const res = await fetch(`${process.env.API_URL}/api/ingredient?id=${id}`, {
-      cache: "no-cache",
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch data: ${res.statusText} (${res.status})`);
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error("Update failed:", error);
-  }
-}
-
 export default async function UpdateIngredient({ params }: { params: { id: string } }) {
-  const ingr = await getIngr(params.id);
+  const ingredient = await getItem(params.id, "ingredient") as Ingredient;
   const updateItemWithId = updateItem.bind(null, params.id, "ingredient");
 
   return (
@@ -32,7 +17,7 @@ export default async function UpdateIngredient({ params }: { params: { id: strin
           name="name"
           type="text"
           required
-          defaultValue={ingr?.name}
+          defaultValue={ingredient?.name}
           placeholder="Eg: Bubbaloo"
           className="input input-bordered w-full"
         />
@@ -48,7 +33,7 @@ export default async function UpdateIngredient({ params }: { params: { id: strin
           type="number"
           step=".01"
           required
-          defaultValue={ingr?.price}
+          defaultValue={ingredient?.price}
           placeholder="Eg: 3.95"
           className="input input-bordered w-full"
         />
@@ -64,7 +49,7 @@ export default async function UpdateIngredient({ params }: { params: { id: strin
           type="number"
           step=".01"
           required
-          defaultValue={ingr?.weight}
+          defaultValue={ingredient?.weight}
           placeholder="Eg: 1000"
           className="input input-bordered w-full"
         />

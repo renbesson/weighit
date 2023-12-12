@@ -20,7 +20,9 @@ export async function getItems(type: string) {
     // Recipe getting logic
     /////////////////////////////////////////////
     case "recipes":
-      const recipes = await prisma.recipe.findMany();
+      const recipes = await prisma.recipe.findMany({
+        include: { ingredients: { include: { ingredient: true } } },
+      });
 
       if (!recipes) {
         return { message: "No recipes found." };
