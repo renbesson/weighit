@@ -43,7 +43,7 @@ export default async function AppBar() {
           </ul>
         </div>
         <Link className="btn btn-ghost normal-case text-xl" href={"/"}>
-          daisyUI
+          Weigh It
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
