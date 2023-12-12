@@ -10,7 +10,7 @@ const fetcher = async () => await getItems("ingredients");
 export default function AddRecipe() {
   const [ingrCount, setIngrCount] = useState(0);
   const createItemWithType = createItem.bind(null, "recipe");
-  const { data: ingredients } = useSWR("/ ", fetcher) as { data: Ingredient[] };
+  const { data: ingredients } = useSWR("/ ", fetcher) as unknown as { data: Ingredient[] };
 
   return (
     <form className="form-control max-w-md gap-3 m-auto" action={createItemWithType}>
@@ -52,7 +52,6 @@ export default function AddRecipe() {
             <select
               id={`ingr${index}`}
               name={`ingr${index}`}
-              placeholder="Eg: Eggs"
               className="select select-bordered input-sm w-full"
               defaultValue=""
             >

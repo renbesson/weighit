@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default async function AppBar() {
+export default function AppBar() {
   const MainMenuOption = ({ text, link }: { text: string; link: string }) => (
     <li>
       <Link
