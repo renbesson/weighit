@@ -35,7 +35,11 @@ export default function RecipeCard({ id, name, servings, ingredients, directions
             <Image src="/icons/editImg.svg" alt="" width={24} height={24} />
           </button>
 
-          <Link href={`/ingredients/update/${id}`} className="btn btn-primary btn-square m-1">
+          <Link href={`/recipes/update/ingredients/${id}`} className="btn btn-primary btn-square m-1">
+            <Image src="/icons/garlic.svg" alt="" width={24} height={24} />
+          </Link>
+
+          <Link href={`/recipes/update/${id}`} className="btn btn-primary btn-square m-1">
             <Image src="/icons/edit.svg" alt="" width={24} height={24} />
           </Link>
 

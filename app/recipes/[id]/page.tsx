@@ -35,7 +35,14 @@ export default function RecipePage({ params }: { params: { id: string } }) {
 
             return (
               <tr key={ingr.id}>
-                <td>{currentQty && <span className="font-bold">{currentQty}</span>} gram(s)</td>
+                <td>
+                  {currentQty && (
+                    <span className="font-bold">
+                      {currentQty > 10 ? currentQty.toFixed(0) : currentQty.toFixed(1)}
+                    </span>
+                  )}{" "}
+                  gram(s)
+                </td>
                 <td>{ingr.ingredient.name}</td>
                 <td>
                   {costOfIngr.toLocaleString("en-US", {
