@@ -1,8 +1,12 @@
 "use server";
 
+import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/prisma";
 
 export async function getItems(type: string) {
+  // unstable_noStore is equivalent to cache: 'no-store' on a fetch
+  noStore();
+
   switch (type) {
     /////////////////////////////////////////////
     // Ingredients getting logic

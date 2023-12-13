@@ -5,7 +5,6 @@ import { getItems } from "./actions/getItems";
 export default async function Ingredients() {
   const ingredients = (await getItems("ingredients")) as unknown as Ingredient[];
 
-  console.log(ingredients);
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
       {ingredients.map((item: Ingredient) => (

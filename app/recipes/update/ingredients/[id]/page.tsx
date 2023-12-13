@@ -26,7 +26,7 @@ export default async function UpdateIngredientsRecipe({ params }: { params: { id
               <td>
                 <input
                   className="input input-bordered input-xs max-w-[64px]"
-                  defaultValue={ingr.ingredient.weight}
+                  defaultValue={ingr.quantity}
                   name={`ingr-${ingr.id}`}
                 />
                 <span> gram(s)</span>
