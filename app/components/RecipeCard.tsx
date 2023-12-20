@@ -7,7 +7,7 @@ import toCurrency from "../functions/toCurrency";
 export default async function RecipeCard({ recipe }: { recipe: RecipeWithIngredients }) {
   const deleteItemWithId = deleteItem.bind(null, recipe.id, "recipe");
 
-  const cost = calculateTotalCost(recipe.ingredients, recipe.servings);
+  const cost = calculateTotalCost(recipe.recipeIngredients, recipe.servings);
 
   return (
     <form className="card card-compact bg-base-100 shadow-xl w-96 image-full">
