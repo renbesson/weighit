@@ -1,5 +1,5 @@
-import { updateItem } from "@/app/ingredients/actions/updateItem";
-import { getItem } from "@/app/ingredients/actions/getItem";
+import { updateItem } from "@/app/actions/updateItem";
+import { getItem } from "@/app/actions/getItem";
 
 export default async function UpdateRecipe({ params }: { params: { id: string } }) {
   const recipe: Recipe = (await getItem(params.id, "recipe")) as any;
@@ -56,7 +56,7 @@ export default async function UpdateRecipe({ params }: { params: { id: string } 
         </div>
 
         <button className="btn btn-primary" type="submit">
-          Create
+          Update
         </button>
       </form>
     )

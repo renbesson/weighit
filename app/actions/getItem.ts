@@ -2,6 +2,7 @@
 
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "@/lib/prisma";
+import { Ingredient, Recipe } from "@prisma/client";
 
 export async function getItem(id: string, type: string) {
   // unstable_noStore is equivalent to cache: 'no-store' on a fetch
@@ -26,14 +27,13 @@ export async function getItem(id: string, type: string) {
     case "recipe":
       const recipe = await prisma.recipe.findUnique({
         where: { id: id },
-        include: { ingredients: { include: { ingredient: true } } },
       });
 
       if (!recipe) {
         return { message: `No recipe found with ID ${id}.` };
       }
 
-      return recipe;
+      return recipe as Recipe;
 
     default:
       return JSON.stringify({ message: "Invalid 'type' argument." });

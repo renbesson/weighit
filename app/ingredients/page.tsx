@@ -1,6 +1,6 @@
 import Link from "next/link";
 import IngredientCard from "../components/IngredientCard";
-import { getItems } from "./actions/getItems";
+import { getItems } from "../actions/getItems";
 
 export default async function Ingredients() {
   const ingredients = (await getItems("ingredients")) as unknown as Ingredient[];

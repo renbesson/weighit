@@ -1,4 +1,4 @@
-import { createItem } from "../actions/createItem";
+import { createItem } from "../../actions/createItem";
 
 export default function AddIngredient() {
   const createItemWithType = createItem.bind(null, "ingredient");

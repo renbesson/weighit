@@ -1,5 +1,5 @@
-import { updateItem } from "@/app/ingredients/actions/updateItem";
-import { getItemsFromId } from "@/app/ingredients/actions/getItemsFromId";
+import { updateItem } from "@/app/actions/updateItem";
+import { getItemsFromId } from "@/app/actions/getItemsFromId";
 
 export default async function UpdateIngredientsRecipe({ params }: { params: { id: string } }) {
   const ingredients = (await getItemsFromId(

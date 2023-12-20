@@ -1,22 +1,15 @@
 import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
-import { getItems } from "../ingredients/actions/getItems";
+import { getItems } from "../actions/getItems";
+import { Recipe } from "@prisma/client";
 
 export default async function Recipes() {
-  const recipes = await getItems("recipes") as any;
+  const recipes = (await getItems("recipes")) as Recipe[];
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">
-      {recipes.map((item: Recipe) => (
-        <RecipeCard
-          key={item.id}
-          id={item.id}
-          name={item.name}
-          directions={item.directions}
-          servings={item.servings}
-          ingredients={item.ingredients}
-          image={item.image || ""}
-        />
+      {recipes.map((recipe) => (
+        <RecipeCard key={recipe.id} recipe={recipe} />
       ))}
       <Link
         className="btn btn-secondary btn-square absolute right-5 bottom-5"

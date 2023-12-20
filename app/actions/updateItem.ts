@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { Ingredient, Recipe } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export async function updateItem(id: string, type: string, formData: FormData) {
@@ -9,7 +10,7 @@ export async function updateItem(id: string, type: string, formData: FormData) {
     // Ingredient updating logic //
     /////////////////////////////////////////////
     case "ingredient":
-      const ingredient = await prisma.ingredient.update({
+      const ingredient: Ingredient = await prisma.ingredient.update({
         where: {
           id: id,
         },
@@ -31,7 +32,7 @@ export async function updateItem(id: string, type: string, formData: FormData) {
     // Recipe updating logic //
     /////////////////////////////////////////////
     case "recipe":
-      const recipe = await prisma.recipe.update({
+      const recipe: Recipe = await prisma.recipe.update({
         where: { id: id },
         data: {
           name: formData.get("name") as string,
@@ -57,6 +58,7 @@ export async function updateItem(id: string, type: string, formData: FormData) {
         const value = pair[1];
         const ingrId = name.split("-")[1];
 
+        // Skips elements that are not from ingredients
         if (!name.startsWith("ingr-")) continue;
 
         const recipeIngredient = await prisma.recipeIngredient.update({

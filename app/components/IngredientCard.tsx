@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { deleteItem } from "../ingredients/actions/deleteItem";
+import { deleteItem } from "../actions/deleteItem";
 
 interface Props {
   id: string;

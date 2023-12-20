@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { Ingredient, Recipe } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export async function createItem(type: string, formData: FormData) {
@@ -9,7 +10,7 @@ export async function createItem(type: string, formData: FormData) {
     // Ingredient creating logic
     /////////////////////////////////////////////
     case "ingredient":
-      const ingredient = await prisma.ingredient.create({
+      const ingredient: Ingredient = await prisma.ingredient.create({
         data: {
           name: formData.get("name") as string,
           price: Number(formData.get("price")) as number,
@@ -53,7 +54,7 @@ export async function createItem(type: string, formData: FormData) {
         };
       });
 
-      const recipe = await prisma.recipe.create({
+      const recipe: Recipe = await prisma.recipe.create({
         data: {
           name: formData.get("name") as string,
           servings: Number(formData.get("servings")) as number,

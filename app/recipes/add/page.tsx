@@ -1,7 +1,7 @@
 "use client";
 
-import { createItem } from "@/app/ingredients/actions/createItem";
-import { getItems } from "@/app/ingredients/actions/getItems";
+import { createItem } from "@/app/actions/createItem";
+import { getItems } from "@/app/actions/getItems";
 import { useState } from "react";
 import useSWR from "swr";
 

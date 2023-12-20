@@ -1,5 +1,5 @@
-import { getItem } from "../../actions/getItem";
-import { updateItem } from "../../actions/updateItem";
+import { getItem } from "../../../actions/getItem";
+import { updateItem } from "../../../actions/updateItem";
 
 export default async function UpdateIngredient({ params }: { params: { id: string } }) {
   const ingredient = await getItem(params.id, "ingredient") as Ingredient;

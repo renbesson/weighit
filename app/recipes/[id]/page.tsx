@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { getItem } from "@/app/ingredients/actions/getItem";
+import { getItem } from "@/app/actions/getItem";
 
 const fetcher = async (id: string) => await getItem(id, "recipe");
 

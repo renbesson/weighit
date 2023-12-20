@@ -1,25 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { deleteItem } from "../ingredients/actions/deleteItem";
+import { deleteItem } from "../actions/deleteItem";
+import { totalCost } from "../functions/totalCost";
+import { Recipe } from "@prisma/client";
 
-interface Props {
-  id: string;
-  name: string;
-  servings: number;
-  ingredients: RecipeIngredient[];
-  directions: string;
-  image: string;
-}
+export default async function RecipeCard({ recipe }: { recipe: Recipe }) {
+  const deleteItemWithId = deleteItem.bind(null, recipe.id, "recipe");
 
-export default function RecipeCard({ id, name, servings, ingredients, directions, image }: Props) {
-  const deleteItemWithId = deleteItem.bind(null, id, "recipe");
 
   return (
     <form className="card card-compact bg-base-100 shadow-xl w-96 image-full">
       <figure>
         <Image
           className="w-auto h-auto"
-          src={image || "/images/placeholder.jpg"}
+          src={recipe.image || "/images/placeholder.jpg"}
           alt=""
           width={256}
           height={128}
@@ -27,19 +21,23 @@ export default function RecipeCard({ id, name, servings, ingredients, directions
       </figure>
 
       <div className="card-body">
-        <Link className="card-title" href={`/recipes/${id}`}>
-          {name}
+        <Link className="card-title" href={`/recipes/${recipe.id}`}>
+          {recipe.name}
         </Link>
+        <span>Total Price: ${'cost'}</span>
         <div className="absolute bottom-3 right-3">
           <button className="btn btn-primary btn-square m-1">
             <Image src="/icons/editImg.svg" alt="" width={24} height={24} />
           </button>
 
-          <Link href={`/recipes/update/ingredients/${id}`} className="btn btn-primary btn-square m-1">
+          <Link
+            href={`/recipes/update/ingredients/${recipe.id}`}
+            className="btn btn-primary btn-square m-1"
+          >
             <Image src="/icons/garlic.svg" alt="" width={24} height={24} />
           </Link>
 
-          <Link href={`/recipes/update/${id}`} className="btn btn-primary btn-square m-1">
+          <Link href={`/recipes/update/${recipe.id}`} className="btn btn-primary btn-square m-1">
             <Image src="/icons/edit.svg" alt="" width={24} height={24} />
           </Link>
 
