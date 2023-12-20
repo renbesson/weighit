@@ -1,8 +1,8 @@
-import { getItem } from "../../../actions/getItem";
+import { getIngredient } from "@/app/actions/getIngredient";
 import { updateItem } from "../../../actions/updateItem";
 
 export default async function UpdateIngredient({ params }: { params: { id: string } }) {
-  const ingredient = await getItem(params.id, "ingredient") as Ingredient;
+  const ingredient = await getIngredient(params.id);
   const updateItemWithId = updateItem.bind(null, params.id, "ingredient");
 
   return (

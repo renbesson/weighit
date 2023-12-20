@@ -1,8 +1,8 @@
+import { getRecipeWithIngredients } from "@/app/actions/getRecipeWithIngredients";
 import { updateItem } from "@/app/actions/updateItem";
-import { getItem } from "@/app/actions/getItem";
 
 export default async function UpdateRecipe({ params }: { params: { id: string } }) {
-  const recipe: Recipe = (await getItem(params.id, "recipe")) as any;
+  const recipe = await getRecipeWithIngredients(params.id);
 
   const updateItemWithId = updateItem.bind(null, params.id, "recipe");
 

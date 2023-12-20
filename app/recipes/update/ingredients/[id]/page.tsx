@@ -1,11 +1,8 @@
 import { updateItem } from "@/app/actions/updateItem";
-import { getItemsFromId } from "@/app/actions/getItemsFromId";
+import { getRecipesIngredientsWithIngredient } from "@/app/actions/getRecipeIngredientsWithIngredient";
 
 export default async function UpdateIngredientsRecipe({ params }: { params: { id: string } }) {
-  const ingredients = (await getItemsFromId(
-    params.id,
-    "recipeIngredients"
-  )) as unknown as RecipeIngredient[];
+  const recipeIngredients = await getRecipesIngredientsWithIngredient(params.id);
 
   const updateItemWithId = updateItem.bind(null, params.id, "recipeIngredient");
 
@@ -20,7 +17,7 @@ export default async function UpdateIngredientsRecipe({ params }: { params: { id
             <th>Amount</th>
           </tr>
 
-          {ingredients.map((ingr, index) => (
+          {recipeIngredients.map((ingr, index) => (
             <tr key={ingr.id}>
               <td>{ingr.ingredient.name}</td>
               <td>

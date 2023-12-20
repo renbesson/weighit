@@ -1,9 +1,10 @@
 import Link from "next/link";
 import IngredientCard from "../components/IngredientCard";
-import { getItems } from "../actions/getItems";
+import { Ingredient } from "@prisma/client";
+import { getIngredients } from "../actions/getIngredients";
 
 export default async function Ingredients() {
-  const ingredients = (await getItems("ingredients")) as unknown as Ingredient[];
+  const ingredients = await getIngredients();
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">

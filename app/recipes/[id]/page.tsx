@@ -2,13 +2,17 @@
 
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { getItem } from "@/app/actions/getItem";
+import { calculateTotalCost } from "@/app/functions/calculateTotalCost";
+import { getRecipeWithIngredients } from "@/app/actions/getRecipeWithIngredients";
 
-const fetcher = async (id: string) => await getItem(id, "recipe");
+const fetcher = async (id: string) => await getRecipeWithIngredients(id);
 
 export default function RecipePage({ params }: { params: { id: string } }) {
-  const { data: recipe } = useSWR(params.id, fetcher) as any;
+  const { data: recipe } = useSWR(params.id, fetcher) as unknown as { data: RecipeWithIngredients };
   const [customServings, setCustomServings] = useState(recipe?.servings);
+  const totalCost = calculateTotalCost(recipe?.recipeIngredients, customServings);
+
+  console.log(totalCost);
 
   useEffect(() => {
     setCustomServings(recipe?.servings);
@@ -25,7 +29,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
             <th>Name</th>
             <th>Cost</th>
           </tr>
-          {recipe?.ingredients?.map((ingr: any) => {
+          {recipe?.recipeIngredients?.map((ingr: any) => {
             const costPerGram = ingr.ingredient.price / ingr.ingredient.weight;
             const qtyPerServing = ingr.quantity / recipe.servings;
             const currentQty = qtyPerServing * customServings;
@@ -85,9 +89,9 @@ export default function RecipePage({ params }: { params: { id: string } }) {
           </label>
           <input
             className="input input-bordered w-full"
-            value={customServings ?? ""}
+            value={customServings ?? null}
             type="number"
-            onChange={(e) => setCustomServings(e.target.value)}
+            onChange={(e) => setCustomServings(Number(e.target.value))}
           />
         </div>
 

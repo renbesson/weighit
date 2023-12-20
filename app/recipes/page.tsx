@@ -1,10 +1,9 @@
 import Link from "next/link";
 import RecipeCard from "../components/RecipeCard";
-import { getItems } from "../actions/getItems";
-import { Recipe } from "@prisma/client";
+import { getRecipesWithIngredients } from "../actions/getRecipesWithIngredients";
 
 export default async function Recipes() {
-  const recipes = (await getItems("recipes")) as Recipe[];
+  const recipes = await getRecipesWithIngredients();
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-5 p-8">

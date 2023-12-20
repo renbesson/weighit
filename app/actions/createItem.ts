@@ -60,12 +60,9 @@ export async function createItem(type: string, formData: FormData) {
           servings: Number(formData.get("servings")) as number,
           directions: formData.get("directions") as string,
           image: "",
-          ingredients: {
+          recipeIngredients: {
             create: ingrs,
           },
-        },
-        include: {
-          ingredients: true, // Include posts when fetching the user
         },
       });
 

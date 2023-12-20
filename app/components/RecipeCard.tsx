@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { deleteItem } from "../actions/deleteItem";
-import { totalCost } from "../functions/totalCost";
-import { Recipe } from "@prisma/client";
+import { calculateTotalCost } from "../functions/calculateTotalCost";
+import toCurrency from "../functions/toCurrency";
 
-export default async function RecipeCard({ recipe }: { recipe: Recipe }) {
+export default async function RecipeCard({ recipe }: { recipe: RecipeWithIngredients }) {
   const deleteItemWithId = deleteItem.bind(null, recipe.id, "recipe");
 
+  const cost = calculateTotalCost(recipe.ingredients, recipe.servings);
 
   return (
     <form className="card card-compact bg-base-100 shadow-xl w-96 image-full">
@@ -24,7 +25,7 @@ export default async function RecipeCard({ recipe }: { recipe: Recipe }) {
         <Link className="card-title" href={`/recipes/${recipe.id}`}>
           {recipe.name}
         </Link>
-        <span>Total Price: ${'cost'}</span>
+        <span>Total Price: {toCurrency(cost)}</span>
         <div className="absolute bottom-3 right-3">
           <button className="btn btn-primary btn-square m-1">
             <Image src="/icons/editImg.svg" alt="" width={24} height={24} />

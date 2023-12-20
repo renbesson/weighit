@@ -20,22 +20,22 @@ model Ingredient {
   RecipeIngredient RecipeIngredient[]
 }
 
-model Recipe {
-  id          String             @id @unique @default(cuid())
-  name        String             @unique
-  servings    Float
-  directions  String
-  image       String
-  ingredients RecipeIngredient[]
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @default(now())
-}
-
 model RecipeIngredient {
   id           String     @id @default(cuid())
   recipeId     String
   ingredientId String
   quantity     Float
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+}
+
+model Recipe {
+  id                String             @id @unique @default(cuid())
+  name              String             @unique
+  servings          Float
+  directions        String
+  image             String
+  recipeIngredients RecipeIngredient[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now())
 }

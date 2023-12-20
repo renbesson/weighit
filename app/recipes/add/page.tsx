@@ -1,16 +1,17 @@
 "use client";
 
 import { createItem } from "@/app/actions/createItem";
-import { getItems } from "@/app/actions/getItems";
+import { getIngredients } from "@/app/actions/getIngredients";
+import { Ingredient } from "@prisma/client";
 import { useState } from "react";
 import useSWR from "swr";
 
-const fetcher = async () => await getItems("ingredients");
+const fetcher = async () => await getIngredients();
 
 export default function AddRecipe() {
   const [ingrCount, setIngrCount] = useState(0);
   const createItemWithType = createItem.bind(null, "recipe");
-  const { data: ingredients } = useSWR("/ ", fetcher) as unknown as { data: Ingredient[] };
+  const { data: ingredients } = useSWR("/ ", fetcher) as { data: Ingredient[] };
 
   return (
     <form className="form-control max-w-md gap-3 m-auto" action={createItemWithType}>
