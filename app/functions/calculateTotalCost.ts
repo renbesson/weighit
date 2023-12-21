@@ -4,15 +4,15 @@ export function calculateTotalCost(
   recipeIngredients: RecipeIngredientWithIngredient[],
   servings: number
 ) {
-  let totalCost = 0;
+  return (
+    recipeIngredients?.reduce((accumulator, recipeIngredient) => {
+      const price = recipeIngredient.ingredient.price;
+      const weight = recipeIngredient.ingredient.weight;
 
-  recipeIngredients?.forEach((ingr) => {
-    const qty = ingr.quantity;
-    const costPerGram = ingr.ingredient.price / ingr.ingredient.weight;
-    const costOfIngr = costPerGram * qty;
+      const costPerGram = price / weight;
+      const ingredientCost = costPerGram * servings;
 
-    totalCost += costOfIngr;
-  });
-
-  return totalCost;
+      return accumulator + ingredientCost;
+    }, 0) || 0
+  );
 }

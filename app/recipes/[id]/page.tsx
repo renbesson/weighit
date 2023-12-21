@@ -4,23 +4,21 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { calculateTotalCost } from "@/app/functions/calculateTotalCost";
 import { getRecipeWithIngredients } from "@/app/actions/getRecipeWithIngredients";
+import { calculateIngredientCost } from "@/app/functions/calculateIngredientCost";
+import toCurrency from "@/app/functions/toCurrency";
 
 const fetcher = async (id: string) => await getRecipeWithIngredients(id);
 
 export default function RecipePage({ params }: { params: { id: string } }) {
   const { data: recipe } = useSWR(params.id, fetcher) as unknown as { data: RecipeWithIngredients };
   const [customServings, setCustomServings] = useState(recipe?.servings);
-  const totalCost = calculateTotalCost(recipe?.recipeIngredients, customServings);
-
-  console.log(totalCost);
+  const totalCost = calculateTotalCost(recipe?.recipeIngredients, customServings) || 0;
 
   useEffect(() => {
     setCustomServings(recipe?.servings);
   }, [recipe?.servings]);
 
   const IngrsView = () => {
-    let totalCost = 0;
-
     return (
       <table className="table table-sm">
         <tbody>
@@ -30,12 +28,9 @@ export default function RecipePage({ params }: { params: { id: string } }) {
             <th>Cost</th>
           </tr>
           {recipe?.recipeIngredients?.map((ingr: any) => {
-            const costPerGram = ingr.ingredient.price / ingr.ingredient.weight;
             const qtyPerServing = ingr.quantity / recipe.servings;
             const currentQty = qtyPerServing * customServings;
-            const costOfIngr = costPerGram * currentQty;
-
-            totalCost += costOfIngr;
+            const ingredientCost = calculateIngredientCost(ingr, customServings) || 0;
 
             return (
               <tr key={ingr.id}>
@@ -48,12 +43,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
                   gram(s)
                 </td>
                 <td>{ingr.ingredient.name}</td>
-                <td>
-                  {costOfIngr.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })}
-                </td>
+                <td>{toCurrency(ingredientCost)}</td>
               </tr>
             );
           })}
@@ -62,12 +52,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
           <tr>
             <th></th>
             <th>Total Cost:</th>
-            <th>
-              {totalCost.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
-            </th>
+            <th>{toCurrency(totalCost)}</th>
           </tr>
         </tfoot>
       </table>
@@ -89,7 +74,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
           </label>
           <input
             className="input input-bordered w-full"
-            value={customServings ?? null}
+            value={customServings ?? 0}
             type="number"
             onChange={(e) => setCustomServings(Number(e.target.value))}
           />
