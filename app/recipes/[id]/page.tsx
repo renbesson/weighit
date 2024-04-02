@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { calculateTotalCost } from "@/app/functions/calculateTotalCost";
 import { getRecipeWithIngredients } from "@/app/actions/getRecipeWithIngredients";
-import { calculateIngredientCost } from "@/app/functions/calculateIngredientCost";
+import { ingredientCostPerServing } from "@/app/functions/calculateIngredientCost";
 import toCurrency from "@/app/functions/toCurrency";
 
 const fetcher = async (id: string) => await getRecipeWithIngredients(id);
@@ -30,7 +30,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
           {recipe?.recipeIngredients?.map((ingr: any) => {
             const qtyPerServing = ingr.quantity / recipe.servings;
             const currentQty = qtyPerServing * customServings;
-            const ingredientCost = calculateIngredientCost(ingr, customServings) || 0;
+            const ingredientCost = ingredientCostPerServing(ingr, recipe.servings) || 0;
 
             return (
               <tr key={ingr.id}>
@@ -43,7 +43,7 @@ export default function RecipePage({ params }: { params: { id: string } }) {
                   gram(s)
                 </td>
                 <td>{ingr.ingredient.name}</td>
-                <td>{toCurrency(ingredientCost)}</td>
+                <td>{toCurrency(ingredientCost * customServings)}</td>
               </tr>
             );
           })}
